@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">tictactoe_EvelinaGeikina</string>
+
+    <string name="homeTile">Tic Tac Toe</string>
+    <string name="pvpPlayButton">PvP</string>
+    <string name="pvcPlayButton">PvC</string>
+    <string name="chooseGameMode">Choose The Game Mode</string>
+
+    <string name="enterNames">Enter Player Names</string>
+    <string name="enterYourName">Enter Your Name</string>
+    <string name="player1">Player 1</string>
+    <string name="player2">Player 2</string>
+    <string name="player">Player</string>
+    <string name="play">Play</string>
+    <string name="backToHomePage">Back</string>
+    <string name="NameHint">Enter Your Name</string>>
+
+    <string name="playAgain">Play Again</string>
+    <string name="homePage">Home</string>
+</resources>
