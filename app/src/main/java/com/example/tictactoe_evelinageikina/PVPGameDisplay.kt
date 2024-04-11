@@ -44,7 +44,7 @@ class GreetingDialogFragment : DialogFragment() {
 
 class PVPGameDisplay : AppCompatActivity() {
 //tiek ieviests pats spēles lauks, Play Again un Home pogas, teksta lauks
-    private lateinit var ticTacToeBoard: TicTacToeBoard
+    private lateinit var pvpTicTacToeBoard: TicTacToeBoard
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,9 +70,9 @@ class PVPGameDisplay : AppCompatActivity() {
             playerTurn.setText((playerNames[0] + "'s Turn"))
         }
 
-        ticTacToeBoard = findViewById(R.id.ticTacToeBoard)
+        pvpTicTacToeBoard = findViewById(R.id.ticTacToeBoard)
         //tiek uzstādītas pogas un teksta lauks, paņemti spēlētāju vārdi
-        ticTacToeBoard.setUpGame(playAgainBTN, homeBTN, playerTurn, playerNames)
+        pvpTicTacToeBoard.setUpGame(playAgainBTN, homeBTN, playerTurn, playerNames)
         //tiek izvadīts greeting message
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -91,8 +91,8 @@ class PVPGameDisplay : AppCompatActivity() {
     }
 
     fun playAgainBTNClick(view: View){
-        ticTacToeBoard.resetGame()
-        ticTacToeBoard.invalidate()
+        pvpTicTacToeBoard.resetGame()
+        pvpTicTacToeBoard.invalidate()
     }
 
     fun homeBTNClick(view: View) {

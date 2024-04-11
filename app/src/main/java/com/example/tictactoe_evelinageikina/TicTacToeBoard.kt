@@ -27,11 +27,11 @@ class TicTacToeBoard @JvmOverloads constructor(
 
     private val paint = Paint()
     private var cellSize = 0
-    private val game: GameLogic
+    private val gamePVP: GameLogic
 
     //tiek ieviesti atribūti, lai tiktu zīmēti un iekrāsoti lauki, zīmes un uzvaras līnijas
     init {
-        game = GameLogic()
+        gamePVP = GameLogic()
         val a = context.theme.obtainStyledAttributes(attrs, R.styleable.TicTacToeBoard, 0, 0)
         try {
             boardColor = a.getInteger(R.styleable.TicTacToeBoard_boardColor, 0)
@@ -63,19 +63,19 @@ class TicTacToeBoard @JvmOverloads constructor(
             val col = kotlin.math.ceil(x / cellSize).toInt()
 
             if (!winningLine){
-                if (game.updateBoard(row, col)) {
+                if (gamePVP.updateBoard(row, col)) {
                     invalidate()
 
-                    if (game.winnerCheck()){
+                    if (gamePVP.winnerCheck()){
                         winningLine = true
                         invalidate()
                     }
 
-                    if (game.getPlayer() % 2 == 0){
-                        game.setPlayer(game.getPlayer() - 1)
+                    if (gamePVP.getPlayer() % 2 == 0){
+                        gamePVP.setPlayer(gamePVP.getPlayer() - 1)
                     }
                     else {
-                        game.setPlayer(game.getPlayer() + 1)
+                        gamePVP.setPlayer(gamePVP.getPlayer() + 1)
                     }
                 }
             }
@@ -114,8 +114,8 @@ class TicTacToeBoard @JvmOverloads constructor(
     private fun drawMarkers(canvas: Canvas) {
         for (r in 0..2) {
             for (c in 0..2) {
-                if (game.getGameBoard()[r][c] != 0) {
-                    if (game.getGameBoard()[r][c] == 1) {
+                if (gamePVP.getGameBoard()[r][c] != 0) {
+                    if (gamePVP.getGameBoard()[r][c] == 1) {
                         drawX(canvas, r, c)
                     } else {
                         drawO(canvas, r, c)
@@ -171,10 +171,10 @@ class TicTacToeBoard @JvmOverloads constructor(
     }
 
     private fun drawWinLine(canvas: Canvas) {
-        var row: Int = game.getWinType()[0]
-        var col: Int = game.getWinType()[1]
+        var row: Int = gamePVP.getWinType()[0]
+        var col: Int = gamePVP.getWinType()[1]
 
-        when (game.getWinType()[2]) {
+        when (gamePVP.getWinType()[2]) {
             1 -> drawHorizontalLine(canvas, row, col)
             2 -> drawVerticalLine(canvas, row, col)
             3 -> drawDiagLineNeg(canvas)
@@ -183,14 +183,14 @@ class TicTacToeBoard @JvmOverloads constructor(
     }
     //spēles sākumā tiek uzstādītas pogas, spēlētāju kārtas teksts un paņemti spēlētāju ievadītie vārdi
     fun setUpGame (playAgain: Button, home: Button, playerDisplay: TextView, names: Array<String>){
-        game.setPlayAgainBTN(playAgain)
-        game.setHomeBTN(home)
-        game.setPlayerTurn(playerDisplay)
-        game.setPlayerNames(names)
+        gamePVP.setPlayAgainBTN(playAgain)
+        gamePVP.setHomeBTN(home)
+        gamePVP.setPlayerTurn(playerDisplay)
+        gamePVP.setPlayerNames(names)
     }
 
     fun resetGame() {
-        game.resetGame()
+        gamePVP.resetGame()
         winningLine = false
     }
 }

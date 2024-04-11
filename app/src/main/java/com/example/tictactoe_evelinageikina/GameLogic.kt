@@ -10,7 +10,7 @@ import android.widget.TextView
 class GameLogic {
     //lauks tiek kodā attēlots kā 3x3 masīvs, 0 - tukšs lauks, 1 - lauks aizpildīts ar X jeb 1.spēlētāja gājienu, 2 - lauks aizpildīts ar O
     // jeb 2.spēlētāja gājienu
-    private var gameBoardArray: Array<IntArray>
+    private var boardArray: Array<IntArray>
     private var playerNames = arrayOf("Player 1", "Player 2")
     //private var playerTypes = arrayOf("Human", "Computer")
     //to do make player class then makes array of players
@@ -24,12 +24,12 @@ class GameLogic {
     private var currentPlayer = 1
 
     init {
-        gameBoardArray = Array(3) { IntArray(3) { 0 } }
+        boardArray = Array(3) { IntArray(3) { 0 } }
     }
     //tiek atjaunots masīvs un teksts, kur rakstīts, kura gājiens šobrīd esot
     fun updateBoard(row: Int, col: Int): Boolean {
-        if (gameBoardArray[row - 1][col - 1] == 0) {
-            gameBoardArray[row - 1][col - 1] = currentPlayer
+        if (boardArray[row - 1][col - 1] == 0) {
+            boardArray[row - 1][col - 1] = currentPlayer
 
             if (currentPlayer == 1){
                 playerTurn.setText((playerNames[1] + "'s Turn"))
@@ -50,43 +50,43 @@ class GameLogic {
     }
     //tiek pārbaudīts, kāda veida uzvara ir notikusi
     fun winnerCheck(): Boolean {
-        var isWinner: Boolean = false
+        var isWin: Boolean = false
 
         //pārbauda, vai ir horizontāla līnija ar vienādām zīmēm
         for (r in 0..2) {
-            if (gameBoardArray[r][0] == gameBoardArray[r][1] && gameBoardArray[r][0] == gameBoardArray[r][2] && gameBoardArray[r][0] != 0) {
+            if (boardArray[r][0] == boardArray[r][1] && boardArray[r][0] == boardArray[r][2] && boardArray[r][0] != 0) {
                 winType = arrayOf(r, 0, 1)
-                isWinner = true
+                isWin = true
             }
         }
         //pārbauda, vai ir vertikāla līnija ar vienādām zīmēm
         for (c in 0..2) {
-            if (gameBoardArray[0][c] == gameBoardArray[1][c] && gameBoardArray[2][c] == gameBoardArray[0][c] && gameBoardArray[0][c] != 0) {
+            if (boardArray[0][c] == boardArray[1][c] && boardArray[2][c] == boardArray[0][c] && boardArray[0][c] != 0) {
                 winType = arrayOf(0, c, 2)
-                isWinner = true
+                isWin = true
             }
         }
         //pārbauda, vai ir diagonāla līnija no kreisā augšējā stūra uz labo apakšējo stūri ar vienādām zīmēm
-        if (gameBoardArray[0][0] == gameBoardArray[1][1] && gameBoardArray[0][0] == gameBoardArray[2][2] && gameBoardArray[0][0] != 0) {
+        if (boardArray[0][0] == boardArray[1][1] && boardArray[0][0] == boardArray[2][2] && boardArray[0][0] != 0) {
             winType = arrayOf(0, 2, 3)
-            isWinner = true
+            isWin = true
         }
         //pārbauda, vai ir diagonāla līnija no labā augšējā stūra uz kreiso apakšējo stūri ar vienādām zīmēm
-        if (gameBoardArray[2][0] == gameBoardArray[1][1] && gameBoardArray[2][0] == gameBoardArray[0][2] && gameBoardArray[2][0] != 0) {
+        if (boardArray[2][0] == boardArray[1][1] && boardArray[2][0] == boardArray[0][2] && boardArray[2][0] != 0) {
             winType = arrayOf(2, 2, 4)
-            isWinner = true
+            isWin = true
         }
         //tiek skaitīts, cik lauki šobrīd ir aizņemti
         var boardFilled: Int = 0
         for (r in 0..2){
             for(c in 0..2){
-                if (gameBoardArray[r][c] != 0){
+                if (boardArray[r][c] != 0){
                     boardFilled++
                 }
             }
         }
         //ja ir uzvara, tad parādās Play Again un Home pogas un teksts ar uzvarētāju
-        if (isWinner){
+        if (isWin){
             playAgainBTN.visibility = View.VISIBLE
             homeBTN.visibility = View.VISIBLE
             playerTurn.setText((playerNames[currentPlayer-1]) + " Won!")
@@ -107,7 +107,7 @@ class GameLogic {
     }
     //tiek atjaunots spēles lauks pēc Play Again pogas nospiešanas
     fun resetGame() {
-        gameBoardArray = Array(3) { IntArray(3) { 0 } }
+        boardArray = Array(3) { IntArray(3) { 0 } }
         currentPlayer = 1
         playAgainBTN.visibility = View.GONE
         homeBTN.visibility = View.GONE
@@ -131,7 +131,7 @@ class GameLogic {
     }
 
     fun getGameBoard(): Array<IntArray> {
-        return gameBoardArray
+        return boardArray
     }
 
     fun setPlayer(currentPlayer: Int) {

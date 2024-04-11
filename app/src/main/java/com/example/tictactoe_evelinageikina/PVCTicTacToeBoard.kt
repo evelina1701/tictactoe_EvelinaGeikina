@@ -25,7 +25,7 @@ class PVCTicTacToeBoard @JvmOverloads constructor(
     private val oColor: Int
     private val winningLineColor: Int
 
-    private var winningLine: Boolean = false
+    private var winLine: Boolean = false
 
     private val paint = Paint()
     private var cellSize = 0
@@ -66,13 +66,13 @@ class PVCTicTacToeBoard @JvmOverloads constructor(
                 val row = kotlin.math.ceil(y / cellSize).toInt()
                 val col = kotlin.math.ceil(x / cellSize).toInt()
 
-                if (!winningLine) {
+                if (!winLine) {
                     if (gamePVC.updateBoard(row, col)) {
                         invalidate()
                         Log.d("PVCTicTacToeBoard", "Game board updated")
 
                         if (gamePVC.winnerCheck()) {
-                            winningLine = true
+                            winLine = true
                             invalidate()
                         } else {
                             // Make AI move after successful human move
@@ -80,7 +80,7 @@ class PVCTicTacToeBoard @JvmOverloads constructor(
                             invalidate()
                             Log.d("PVCTicTacToeBoard", "Computer made a move")
                             if (gamePVC.winnerCheck()) {
-                                winningLine = true
+                                winLine = true
                             }
                             invalidate()
 
@@ -104,7 +104,7 @@ class PVCTicTacToeBoard @JvmOverloads constructor(
         drawGameBoard(canvas)
         drawMarkers(canvas)
 
-        if (winningLine) {
+        if (winLine) {
             paint.setColor(winningLineColor)
             drawWinLine(canvas)
         }
@@ -202,7 +202,7 @@ class PVCTicTacToeBoard @JvmOverloads constructor(
 
     fun resetGame() {
         gamePVC.resetGame()
-        winningLine = false
+        winLine = false
     }
 
 
