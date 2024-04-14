@@ -1,4 +1,4 @@
-// Avots: https://github.com/Practical-Coding3/TicTacToeApp/tree/master
+// Avots: https://github.com/Practical-Coding3/TicTacToeApp/tree/master (tika modificēts oriģinālais kods)
 ///////////////////////////////////////////////////////////////////////
 
 package com.example.tictactoe_evelinageikina

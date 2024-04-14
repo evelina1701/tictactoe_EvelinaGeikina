@@ -1,4 +1,4 @@
-// Avots: https://github.com/Practical-Coding3/TicTacToeApp/tree/master
+// Avots: https://github.com/Practical-Coding3/TicTacToeApp/tree/master (tika modificēts oriģinālais kods)
 ///////////////////////////////////////////////////////////////////////
 
 package com.example.tictactoe_evelinageikina
@@ -13,7 +13,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 
-class TicTacToeBoard @JvmOverloads constructor(
+class PVPTicTacToeBoard @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
 ) : View(context, attrs) {
@@ -27,11 +27,11 @@ class TicTacToeBoard @JvmOverloads constructor(
 
     private val paint = Paint()
     private var cellSize = 0
-    private val gamePVP: GameLogic
+    private val gamePVP: PVPGameLogic
 
     //tiek ieviesti atribūti, lai tiktu zīmēti un iekrāsoti lauki, zīmes un uzvaras līnijas
     init {
-        gamePVP = GameLogic()
+        gamePVP = PVPGameLogic()
         val a = context.theme.obtainStyledAttributes(attrs, R.styleable.TicTacToeBoard, 0, 0)
         try {
             boardColor = a.getInteger(R.styleable.TicTacToeBoard_boardColor, 0)

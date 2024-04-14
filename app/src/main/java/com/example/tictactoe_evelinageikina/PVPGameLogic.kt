@@ -1,4 +1,4 @@
-// Avots: https://github.com/Practical-Coding3/TicTacToeApp/tree/master
+// Avots: https://github.com/Practical-Coding3/TicTacToeApp/tree/master (tika modificēts oriģinālais kods)
 ///////////////////////////////////////////////////////////////////////
 
 package com.example.tictactoe_evelinageikina
@@ -7,13 +7,12 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 
-class GameLogic {
+class PVPGameLogic {
     //lauks tiek kodā attēlots kā 3x3 masīvs, 0 - tukšs lauks, 1 - lauks aizpildīts ar X jeb 1.spēlētāja gājienu, 2 - lauks aizpildīts ar O
     // jeb 2.spēlētāja gājienu
     private var boardArray: Array<IntArray>
     private var playerNames = arrayOf("Player 1", "Player 2")
-    //private var playerTypes = arrayOf("Human", "Computer")
-    //to do make player class then makes array of players
+
     // 1st element -> row, 2nd element -> col, 3rd element -> line type
     private var winType = arrayOf(-1, -1, -1)
 
@@ -33,16 +32,10 @@ class GameLogic {
 
             if (currentPlayer == 1){
                 playerTurn.setText((playerNames[1] + "'s Turn"))
-                //if (playerTypes[currentPlayer-1] == "Computer"){
-            // computerMove()
-            // change current player to 2
-            // }
             }
-            //
             else {
                 playerTurn.setText((playerNames[0] + "'s Turn"))
             }
-
             return true
         } else {
             return false

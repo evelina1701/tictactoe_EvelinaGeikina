@@ -1,4 +1,4 @@
-// Avoti: https://github.com/Practical-Coding3/TicTacToeApp/tree/master
+// Avoti: https://github.com/Practical-Coding3/TicTacToeApp/tree/master (tika modificēts oriģinālais kods)
 //        ChatGPT (fragments, kurš tika iegūts ar mākslīgo intelektu, ir nodalīts ar /// no augšas un apakšas)
 ///////////////////////////////////////////////////////////////////////
 
@@ -18,9 +18,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.DialogFragment
 
-//import com.example.tictactoe_evelinageikina.R
 
-//tiek izvadīts greeting message
+//tiek izveidots greeting message
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ChatGPT prompt:
 // *kods no PVPGameDisplay.kt faila*
@@ -44,7 +43,7 @@ class GreetingDialogFragment : DialogFragment() {
 
 class PVPGameDisplay : AppCompatActivity() {
 //tiek ieviests pats spēles lauks, Play Again un Home pogas, teksta lauks
-    private lateinit var pvpTicTacToeBoard: TicTacToeBoard
+    private lateinit var pvpTicTacToeBoard: PVPTicTacToeBoard
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +63,8 @@ class PVPGameDisplay : AppCompatActivity() {
         playAgainBTN.visibility = View.GONE
         homeBTN.visibility = View.GONE
 
+        // tiek paņemti spēlētāju ievadītie vārdi, kuri tika saglabāti masīvā "PLAYER_NAMES", un vārdi tiek izmantoti paziņojumu izvadei
+        // un tekstam virs spēles lauka
         var playerNames: Array<String> = intent.getStringArrayExtra("PLAYER_NAMES") as Array<String>
 
         if(playerNames != null){

@@ -1,4 +1,4 @@
-// Avoti: https://github.com/Practical-Coding3/TicTacToeApp/tree/master
+// Avoti: https://github.com/Practical-Coding3/TicTacToeApp/tree/master (tika modificēts oriģinālais kods)
 //        ChatGPT (fragments, kurš tika iegūts ar mākslīgo intelektu, ir nodalīts ar /// no augšas un apakšas)
 ///////////////////////////////////////////////////////////////////////
 
@@ -18,6 +18,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.DialogFragment
 
+//tiek izveidots greeting message
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ChatGPT prompt:
 // *kods no PVPGameDisplay.kt faila*
@@ -39,7 +40,7 @@ class GreetingDialogFragmentPVC : DialogFragment() {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 class PVCGameDisplay : AppCompatActivity() {
-
+    //tiek ieviests pats spēles lauks, Play Again un Home pogas, teksta lauks
     private lateinit var pvcTicTacToeBoard: PVCTicTacToeBoard
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,15 +59,17 @@ class PVCGameDisplay : AppCompatActivity() {
         playAgainBTN.visibility = View.GONE
         homeBTN.visibility = View.GONE
 
+        // tiek paņemts spēlētāja ievadītais vārds, kurš tika saglabāts masīvā "PLAYER_NAMES", un vārds tiek izmantots paziņojumu izvadei
+        // un tekstam virs spēles lauka
         var playerNames: Array<String> = intent.getStringArrayExtra("PLAYER_NAMES") as Array<String>
         
         playerTurn.setText("")
 
         pvcTicTacToeBoard = findViewById(R.id.pvcTicTacToeBoard)
-
-
+        //tiek uzstādītas pogas un teksta lauks, paņemti spēlētāju vārds
         pvcTicTacToeBoard.setUpGame(playAgainBTN, homeBTN, playerTurn, playerNames)
         Log.d("PVCGameDisplay", "PVC Tic Tac Toe Board set up")
+        //tiek izvadīts greeting message
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
         // ChatGPT prompt:
         // *kods no PVPGameDisplay.kt faila*

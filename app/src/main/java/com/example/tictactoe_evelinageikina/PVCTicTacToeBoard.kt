@@ -1,4 +1,4 @@
-// Avoti: https://github.com/Practical-Coding3/TicTacToeApp/tree/master
+// Avoti: https://github.com/Practical-Coding3/TicTacToeApp/tree/master (tika modificēts oriģinālais kods)
 //        Gemini (fragments, kurš tika iegūts ar mākslīgo intelektu, ir nodalīts ar /// no augšas un apakšas)
 ///////////////////////////////////////////////////////////////////////
 
@@ -23,7 +23,7 @@ class PVCTicTacToeBoard @JvmOverloads constructor(
     private val boardColor: Int
     private val xColor: Int
     private val oColor: Int
-    private val winningLineColor: Int
+    private val winLineColor: Int
 
     private var winLine: Boolean = false
 
@@ -31,6 +31,7 @@ class PVCTicTacToeBoard @JvmOverloads constructor(
     private var cellSize = 0
     private val gamePVC: PVCGameLogic
 
+    //tiek ieviesti atribūti, lai tiktu zīmēti un iekrāsoti lauki, zīmes un uzvaras līnijas
     init {
         gamePVC = PVCGameLogic()
         val a = context.theme.obtainStyledAttributes(attrs, R.styleable.TicTacToeBoard, 0, 0)
@@ -38,18 +39,21 @@ class PVCTicTacToeBoard @JvmOverloads constructor(
             boardColor = a.getInteger(R.styleable.TicTacToeBoard_boardColor, 0)
             xColor = a.getInteger(R.styleable.TicTacToeBoard_xColor, 0)
             oColor = a.getInteger(R.styleable.TicTacToeBoard_oColor, 0)
-            winningLineColor = a.getInteger(R.styleable.TicTacToeBoard_winningLineColor, 0)
+            winLineColor = a.getInteger(R.styleable.TicTacToeBoard_winningLineColor, 0)
         } finally {
             a.recycle()
         }
     }
-
+    //nosaka, cik liels būs spēles lauks, ņemot vērā telefona ekrāna šaurāko vietu, tas ir, platumu vai augstumu,
+    //lai spēles lauks pareizi ietilptu ekrānā
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val dimension = kotlin.math.min(measuredWidth, measuredHeight)
         cellSize = dimension / 3
         setMeasuredDimension(dimension, dimension)
     }
+    // tiek pārbaudīts, uz kura lauka cilvēks ir uzspiedis un vai ir uzvara. tiek arī atjaunots lauks pēc spēlētāja gājiena, pārbauda, vai pēc
+    //spēlētāja gājiena ir uzvara, un uzreiz pēc cilvēka gājiena tiek izpildīts datora gājiens un tiek pārbaudīts, vai ir uzvara
     ///////////////////////////////////////////////////////////////////////////////////////////////
     // Gemini prompt:
     // *kods no PVCTicTacToeBoard.kt faila*
@@ -75,7 +79,6 @@ class PVCTicTacToeBoard @JvmOverloads constructor(
                             winLine = true
                             invalidate()
                         } else {
-                            // Make AI move after successful human move
                             gamePVC.makeAIMove()
                             invalidate()
                             Log.d("PVCTicTacToeBoard", "Computer made a move")
@@ -83,7 +86,6 @@ class PVCTicTacToeBoard @JvmOverloads constructor(
                                 winLine = true
                             }
                             invalidate()
-
                         }
                     }
                 }
@@ -95,7 +97,7 @@ class PVCTicTacToeBoard @JvmOverloads constructor(
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
-
+    //tiek zīmēti lauki un X un O, kā arī līniju virs tiem laukiem, kur ir uzvara
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         Log.d("PVCTicTacToeBoard", "onDraw called")
@@ -105,11 +107,11 @@ class PVCTicTacToeBoard @JvmOverloads constructor(
         drawMarkers(canvas)
 
         if (winLine) {
-            paint.setColor(winningLineColor)
+            paint.setColor(winLineColor)
             drawWinLine(canvas)
         }
     }
-
+    // tiek zīmēti spēles lauki
     private fun drawGameBoard(canvas: Canvas) {
         paint.color = boardColor
         paint.strokeWidth = 16f
@@ -120,7 +122,7 @@ class PVCTicTacToeBoard @JvmOverloads constructor(
             canvas.drawLine(0f, cellSize * r.toFloat(), canvas.width.toFloat(), cellSize * r.toFloat(), paint)
         }
     }
-
+    //tiek zīmēti X un O atkarībā no spēlētāja, 1 ir X (cilvēka gājiens), 2 ir O (dators gājiens)
     private fun drawMarkers(canvas: Canvas) {
         for (r in 0..2) {
             for (c in 0..2) {
@@ -134,7 +136,7 @@ class PVCTicTacToeBoard @JvmOverloads constructor(
             }
         }
     }
-
+    //tiek zīmēts X
     private fun drawX(canvas: Canvas, row: Int, col: Int) {
         paint.color = xColor
         canvas.drawLine(
@@ -152,7 +154,7 @@ class PVCTicTacToeBoard @JvmOverloads constructor(
             paint
         )
     }
-
+    //tiek zīmēts O
     private fun drawO(canvas: Canvas, row: Int, col: Int) {
         paint.color = oColor
         canvas.drawOval(
@@ -163,7 +165,7 @@ class PVCTicTacToeBoard @JvmOverloads constructor(
             paint
         )
     }
-
+    //tiek zīmētas uzvaras horizontālās, vertikālās un diagonālās līnijas atkarībā no uzvaras veida
     private fun drawHorizontalLine(canvas: Canvas, row: Int, col: Int) {
         canvas.drawLine(col.toFloat(), (row*cellSize + cellSize/2).toFloat(), (cellSize*3).toFloat(), (row*cellSize + cellSize/2).toFloat(), paint)
     }
@@ -192,6 +194,7 @@ class PVCTicTacToeBoard @JvmOverloads constructor(
         }
     }
 
+    //spēles sākumā tiek uzstādītas pogas, spēlētāju kārtas teksts un paņemti spēlētāju ievadītie vārdi
     fun setUpGame (playAgain: Button, home: Button, playerDisplay: TextView, names: Array<String>){
         gamePVC.setPlayAgainBTN(playAgain)
         gamePVC.setHomeBTN(home)
