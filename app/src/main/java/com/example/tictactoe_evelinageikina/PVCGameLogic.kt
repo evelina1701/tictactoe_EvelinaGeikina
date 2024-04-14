@@ -15,6 +15,8 @@ class PVCGameLogic {
     private var pNames = arrayOf("Player")
 
     // 1st element -> row, 2nd element -> col, 3rd element -> line type
+    // norāda, kurā rindā vai kolonnā notika uzvara un kāda veida uzvara tā esot (horizontāla, vertikāla, diagonāla no
+    // augšējā labā stūra uz kreisoa apakšējo stūri vai diagonāla no labā apakšējā stūra uz kreiso augšējo stūri)
     private var winType = arrayOf(-1, -1, -1)
 
     private lateinit var playAgainBTN: Button
