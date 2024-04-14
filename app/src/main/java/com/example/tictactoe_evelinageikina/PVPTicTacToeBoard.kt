@@ -21,9 +21,9 @@ class PVPTicTacToeBoard @JvmOverloads constructor(
     private val boardColor: Int
     private val xColor: Int
     private val oColor: Int
-    private val winningLineColor: Int
+    private val winLineColor: Int
 
-    private var winningLine: Boolean = false
+    private var winLine: Boolean = false
 
     private val paint = Paint()
     private var cellSize = 0
@@ -37,7 +37,7 @@ class PVPTicTacToeBoard @JvmOverloads constructor(
             boardColor = a.getInteger(R.styleable.TicTacToeBoard_boardColor, 0)
             xColor = a.getInteger(R.styleable.TicTacToeBoard_xColor, 0)
             oColor = a.getInteger(R.styleable.TicTacToeBoard_oColor, 0)
-            winningLineColor = a.getInteger(R.styleable.TicTacToeBoard_winningLineColor, 0)
+            winLineColor = a.getInteger(R.styleable.TicTacToeBoard_winningLineColor, 0)
         } finally {
             a.recycle()
         }
@@ -62,12 +62,12 @@ class PVPTicTacToeBoard @JvmOverloads constructor(
             val row = kotlin.math.ceil(y / cellSize).toInt()
             val col = kotlin.math.ceil(x / cellSize).toInt()
 
-            if (!winningLine){
+            if (!winLine){
                 if (gamePVP.updateBoard(row, col)) {
                     invalidate()
 
                     if (gamePVP.winnerCheck()){
-                        winningLine = true
+                        winLine = true
                         invalidate()
                     }
 
@@ -94,8 +94,8 @@ class PVPTicTacToeBoard @JvmOverloads constructor(
         drawGameBoard(canvas)
         drawMarkers(canvas)
 
-        if (winningLine) {
-            paint.setColor(winningLineColor)
+        if (winLine) {
+            paint.setColor(winLineColor)
             drawWinLine(canvas)
         }
     }
@@ -191,6 +191,6 @@ class PVPTicTacToeBoard @JvmOverloads constructor(
 
     fun resetGame() {
         gamePVP.resetGame()
-        winningLine = false
+        winLine = false
     }
 }
